@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 sceneSetups:
 - path: Assets/Scenes/Bronzo.unity
+=======
+<<<<<<< HEAD
+sceneSetups:
+- path: Assets/Scenes/Chef.unity
+>>>>>>> origin/master
   isLoaded: 1
   isActive: 1
+=======
+sceneSetups: []
+>>>>>>> origin/master
