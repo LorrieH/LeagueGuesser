@@ -12,7 +12,7 @@ public class FadeImage : MonoBehaviour {
 	void Start () {
         fadeImage = GetComponent<Image>();
 
-        c = fadeImage.color;
+        ResetAlpha();
 	}
 	
 	// Update is called once per frame
@@ -27,6 +27,13 @@ public class FadeImage : MonoBehaviour {
     {
         alpha = alpha + 0.01f;
         c.a = alpha;
+        fadeImage.color = c;
+    }
+
+    public void ResetAlpha()
+    {
+        c = fadeImage.color;
+        c.a = 0;
         fadeImage.color = c;
     }
 }
