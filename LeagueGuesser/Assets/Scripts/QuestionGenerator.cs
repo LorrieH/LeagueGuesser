@@ -7,11 +7,13 @@ public class QuestionGenerator : MonoBehaviour {
     public Question[] questions;
     public Question currentQuestion;
 
+    private FadeImage fadeScript;
     [SerializeField]private Text questionText;
     [SerializeField]private Image questionImage;
 
     void Start()
     {
+        fadeScript = GameObject.FindWithTag("QuestionImage").GetComponent<FadeImage>();
         NextQuestion();
     }
 
@@ -20,6 +22,8 @@ public class QuestionGenerator : MonoBehaviour {
         currentQuestion = GenerateQuestion();
         questionText.text = currentQuestion.questionString;
         questionImage.sprite = currentQuestion.questionImage;
+        fadeScript.ResetAlpha();
+
 	}
 
 

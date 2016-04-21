@@ -5,35 +5,37 @@ using UnityEngine.UI;
 public class FadeImage : MonoBehaviour {
 
     private Image fadeImage;
-    private Color c;
-    private float alpha;
+    private float timer;
+    public float Timer
+    {
+        get
+        {
+            return timer;
+        }
+        set
+        {
+            timer = value;
+        }
+    }
 
 	// Use this for initialization
 	void Start () {
         fadeImage = GetComponent<Image>();
-
-        ResetAlpha();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(c.a < 1)
-        {
-            UpdateColor();
-        }
-	}
+        Fade();
+    }
 
-    void UpdateColor()
+    void Fade()
     {
-        alpha = alpha + 0.01f;
-        c.a = alpha;
-        fadeImage.color = c;
+        timer += Time.deltaTime;
+        fadeImage.color = new Color(255f, 255f, 255f, Mathf.Lerp(0f,1, timer)); 
     }
 
     public void ResetAlpha()
     {
-        c = fadeImage.color;
-        c.a = 0;
-        fadeImage.color = c;
+        timer = 0f;
     }
 }
