@@ -8,7 +8,7 @@ public class SaveName : MonoBehaviour {
 
     [SerializeField]private Text incorrectName;
     [SerializeField]private InputField nameInput;
-    [SerializeField]private bool showPanel;
+    private bool showPanel;
     public bool ShowPanel
     {
         get
