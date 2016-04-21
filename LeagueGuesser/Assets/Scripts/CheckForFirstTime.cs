@@ -7,6 +7,7 @@ public class CheckForFirstTime : MonoBehaviour {
     private SaveName saveName;
     [SerializeField]private GameObject panel;
     [SerializeField]private GameObject playButton;
+    [SerializeField]private GameObject profile;
 	// Use this for initialization
 	void Start () {
         saveName = GameObject.FindWithTag("DataObject").GetComponent<SaveName>();
@@ -15,23 +16,22 @@ public class CheckForFirstTime : MonoBehaviour {
 
     void CheckFirstTime()
     {
-        saveName.GetName();
-
         HidePanel();
     }
 
     public void HidePanel()
     {
         saveName.GetName();
-
         if (saveName.ShowPanel == false)
         {
             panel.SetActive(!panel.activeSelf);
             playButton.SetActive(true);
+            profile.SetActive(true);
         }
         else
         {
             playButton.SetActive(false);
+            profile.SetActive(false);
         }
     }
 }
