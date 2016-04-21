@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SaveName : MonoBehaviour {
 
+    [SerializeField]private Text incorrectName;
     [SerializeField]private InputField nameInput;
     [SerializeField]private bool showPanel;
     public bool ShowPanel
@@ -19,23 +20,34 @@ public class SaveName : MonoBehaviour {
             showPanel = value;
         }
     }
-	// Use this for initialization
-	void Start () {
-        GetName();
-	}
+
+    IEnumerator ShowText(float delay)
+    {
+        incorrectName.enabled = true;
+        yield return new WaitForSeconds(delay);
+        incorrectName.enabled = false;       
+    }
 
     public void StoreName(string nickname)
     {
-        nickname = nameInput.text;
+        
+        if (nameInput.text.Length >= 4 && nameInput.text.Length <= 16)
+        {
+            nickname = nameInput.text;
 
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/NameData.elohell");
-        EnterName enterName = new EnterName();
-        enterName.name = nickname;
-        enterName.firstTime = false;
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/NameData.elohell");
+            EnterName enterName = new EnterName();
+            enterName.name = nickname;
+            enterName.firstTime = false;
 
-        bf.Serialize(file, enterName);
-        file.Close();
+            bf.Serialize(file, enterName);
+            file.Close();
+        }
+        else
+        {
+            StartCoroutine(ShowText(1.5f));
+        }
     }
 
     public void GetName()
@@ -47,7 +59,6 @@ public class SaveName : MonoBehaviour {
 
             EnterName saveData = (EnterName)bf.Deserialize(file);
             showPanel = saveData.firstTime;
-            Debug.Log("your nickname = " + saveData.name + "firstTime = " + showPanel);
             file.Close();
         }
     }

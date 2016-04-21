@@ -10,20 +10,21 @@ public class CheckForFirstTime : MonoBehaviour {
 	void Start () {
         saveName = GameObject.FindWithTag("DataObject").GetComponent<SaveName>();
         CheckFirstTime();
-        Debug.Log(saveName.ShowPanel);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        Debug.Log(saveName.ShowPanel);
     }
 
     void CheckFirstTime()
     {
-       
+        saveName.GetName();
+
+        HidePanel();
+    }
+
+    public void HidePanel()
+    {
+        saveName.GetName();
+
         if (saveName.ShowPanel == false)
         {
-            
             panel.SetActive(!panel.activeSelf);
         }
     }
