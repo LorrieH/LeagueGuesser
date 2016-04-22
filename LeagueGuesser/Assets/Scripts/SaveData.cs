@@ -44,12 +44,35 @@ public class SaveData : MonoBehaviour {
             lp = value;
         }
     }
+    private int iconInt;
+    public int IconInt
+    {
+        get
+        {
+            return iconInt;
+        }
+        set
+        {
+            iconInt = value;
+        }
+    }
 
     IEnumerator ShowText(float delay)
     {
         incorrectName.enabled = true;
         yield return new WaitForSeconds(delay);
         incorrectName.enabled = false;       
+    }
+
+    public void SaveIconInt(int arrayInt)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/SpriteData.elohell");
+        SpriteData enterSprite = new SpriteData();
+        enterSprite.spriteInt = arrayInt;
+
+        bf.Serialize(file, enterSprite);
+        file.Close();
     }
 
     public void AddLeaguePoints(int leaguepoints)
@@ -95,6 +118,21 @@ public class SaveData : MonoBehaviour {
             showPanel = saveData.firstTime;
             nickname = saveData.name;
             lp = saveData.leaguePoints;
+
+            file.Close();
+        }
+    }
+
+    public void GetSpriteData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SpriteData.elohell"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/SpriteData.elohell", FileMode.Open);
+
+            SpriteData spriteData = (SpriteData)bf.Deserialize(file);
+            iconInt = spriteData.spriteInt;
+
             file.Close();
         }
     }
@@ -106,4 +144,10 @@ public class EnterData
     public string name;
     public int leaguePoints;
     public bool firstTime;
+}
+
+[System.Serializable]
+public class SpriteData
+{
+    public int spriteInt;
 }

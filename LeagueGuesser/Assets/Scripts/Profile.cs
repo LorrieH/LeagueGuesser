@@ -16,11 +16,16 @@ public class Profile : MonoBehaviour
     {
         saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
         SetNickname();
-        SetIcon(icon);
+        StartingIcon();
         SetElo();
         //add elo like this: saveDataScript.AddLeaguePoints(20);
     }
 
+    private void StartingIcon()
+    {
+        saveDataScript.GetSpriteData();
+        SetIcon(saveDataScript.IconInt);
+    }
     public void SetIcon(int summonerIconIndex)
     {
         icon = summonerIconIndex;
@@ -37,6 +42,11 @@ public class Profile : MonoBehaviour
     {
         saveDataScript.GetData();
         elo = saveDataScript.LP;
+    }
+
+    public void SaveIcon()
+    {
+        saveDataScript.SaveIconInt(icon);
     }
 
 }
