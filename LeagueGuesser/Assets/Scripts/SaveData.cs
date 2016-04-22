@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 
-public class SaveName : MonoBehaviour {
+public class SaveData : MonoBehaviour {
 
     [SerializeField]private Text incorrectName;
     [SerializeField]private InputField nameInput;
@@ -18,6 +18,18 @@ public class SaveName : MonoBehaviour {
         set
         {
             showPanel = value;
+        }
+    }
+    private string nickname;
+    public string Nickname
+    {
+        get
+        {
+            return nickname;
+        }
+        set
+        {
+            nickname = value;
         }
     }
 
@@ -36,11 +48,10 @@ public class SaveName : MonoBehaviour {
             nickname = nameInput.text;
 
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/NameData.elohell");
-            EnterName enterName = new EnterName();
+            FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
+            EnterData enterName = new EnterData();
             enterName.name = nickname;
             enterName.firstTime = false;
-
             bf.Serialize(file, enterName);
             file.Close();
         }
@@ -50,23 +61,25 @@ public class SaveName : MonoBehaviour {
         }
     }
 
-    public void GetName()
+    public void GetData()
     {
-        if(File.Exists(Application.persistentDataPath + "/NameData.elohell"))
+        if(File.Exists(Application.persistentDataPath + "/SaveData.elohell"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/NameData.elohell", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SaveData.elohell", FileMode.Open);
 
-            EnterName saveData = (EnterName)bf.Deserialize(file);
+            EnterData saveData = (EnterData)bf.Deserialize(file);
             showPanel = saveData.firstTime;
+            nickname = saveData.name;
             file.Close();
         }
     }
 }
 
 [System.Serializable]
-public class EnterName
+public class EnterData
 {
     public string name;
+    public int leaguePoints;
     public bool firstTime;
 }

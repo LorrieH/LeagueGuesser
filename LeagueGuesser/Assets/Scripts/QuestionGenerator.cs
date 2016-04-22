@@ -23,10 +23,7 @@ public class QuestionGenerator : MonoBehaviour {
         questionText.text = currentQuestion.questionString;
         questionImage.sprite = currentQuestion.questionImage;
         fadeScript.ResetAlpha();
-
 	}
-
-
 
     private Question GenerateQuestion()
     {

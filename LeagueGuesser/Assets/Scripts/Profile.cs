@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Profile : MonoBehaviour 
 {
+    private SaveData saveDataScript;
     [SerializeField]private string name;
     private Sprite icon;
     private int elo;
@@ -13,13 +14,20 @@ public class Profile : MonoBehaviour
 
     void Start()
     {
-        nameText.text = name;
+        saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
+        SetNickname();   
     }
 
     public void SetIcon(Sprite summonerIcon)
     {
         icon = summonerIcon;
         profileIcon.sprite = icon;
+    }
+
+    public void SetNickname()
+    {
+        saveDataScript.GetData();
+        nameText.text = saveDataScript.Nickname;
     }
 
 }

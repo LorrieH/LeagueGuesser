@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class CheckForFirstTime : MonoBehaviour {
 
-    private SaveName saveName;
+    private SaveData saveName;
     [SerializeField]private GameObject panel;
     [SerializeField]private GameObject playButton;
     [SerializeField]private GameObject profile;
 	// Use this for initialization
 	void Start () {
-        saveName = GameObject.FindWithTag("DataObject").GetComponent<SaveName>();
+        saveName = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
         CheckFirstTime();
     }
 
@@ -21,7 +21,7 @@ public class CheckForFirstTime : MonoBehaviour {
 
     public void HidePanel()
     {
-        saveName.GetName();
+        saveName.GetData();
         if (saveName.ShowPanel == false)
         {
             panel.SetActive(!panel.activeSelf);
