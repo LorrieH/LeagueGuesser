@@ -32,6 +32,18 @@ public class SaveData : MonoBehaviour {
             nickname = value;
         }
     }
+    private int lp;
+    public int LP
+    {
+        get
+        {
+            return lp;
+        }
+        set
+        {
+            lp = value;
+        }
+    }
 
     IEnumerator ShowText(float delay)
     {
@@ -40,7 +52,18 @@ public class SaveData : MonoBehaviour {
         incorrectName.enabled = false;       
     }
 
-    public void StoreName(string nickname)
+    public void AddLeaguePoints(int leaguepoints)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
+        EnterData enterName = new EnterData();
+
+        enterName.leaguePoints += leaguepoints;
+        bf.Serialize(file, enterName);
+        file.Close();
+    }
+
+    public void StoreData(string nickname)
     {
         
         if (nameInput.text.Length >= 4 && nameInput.text.Length <= 16)
@@ -71,6 +94,7 @@ public class SaveData : MonoBehaviour {
             EnterData saveData = (EnterData)bf.Deserialize(file);
             showPanel = saveData.firstTime;
             nickname = saveData.name;
+            lp = saveData.leaguePoints;
             file.Close();
         }
     }

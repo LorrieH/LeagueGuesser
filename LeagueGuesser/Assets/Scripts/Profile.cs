@@ -15,7 +15,9 @@ public class Profile : MonoBehaviour
     void Start()
     {
         saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
-        SetNickname();   
+        SetNickname();
+        SetElo();
+        //add elo like this: saveDataScript.AddLeaguePoints(20);
     }
 
     public void SetIcon(Sprite summonerIcon)
@@ -28,6 +30,12 @@ public class Profile : MonoBehaviour
     {
         saveDataScript.GetData();
         nameText.text = saveDataScript.Nickname;
+    }
+
+    public void SetElo()
+    {
+        saveDataScript.GetData();
+        elo = saveDataScript.LP;
     }
 
 }
