@@ -10,7 +10,7 @@ public class MuteSound : MonoBehaviour {
 	}
 
 	void Awake() {
-		DontDestroyOnLoad(this.gameObject);
+		//DontDestroyOnLoad(this.gameObject);
 	}
 
 	public void onClick()
