@@ -8,14 +8,17 @@ public class Profile : MonoBehaviour
     private SaveData saveDataScript;
     private int icon;
     private int elo;
+    private int ip = 1337;
 
     [SerializeField]private Text nameText;
+    [SerializeField]private Text IPText;
     [SerializeField]private Image profileIcon;
 
     void Start()
     {
         saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
         SetNickname();
+        SetPoints();
         StartingIcon();
         SetElo();
         //add elo like this: saveDataScript.AddLeaguePoints(20);
@@ -30,6 +33,11 @@ public class Profile : MonoBehaviour
     {
         icon = summonerIconIndex;
         profileIcon.sprite = icons[icon];
+    }
+
+    public void SetPoints()
+    {
+        IPText.text = "" + ip;
     }
 
     public void SetNickname()
