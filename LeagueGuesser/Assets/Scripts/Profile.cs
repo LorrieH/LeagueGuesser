@@ -17,17 +17,20 @@ public class Profile : MonoBehaviour
     void Start()
     {
         saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
-        SetNickname();
-        SetPoints();
-        StartingIcon();
-        SetElo();
-        //add elo like this: saveDataScript.AddLeaguePoints(20);
+        StartingStats();
+        //saveDataScript.StoreData(new EnterData(string name, int iconint, int leaguepoints));
+        //to only set 1 variable, use saveDataScript.(variable) for the variables you dont want to change except for leaguepoints, set this to 0 if you dont want to change.
+        //I.E. saveDataScript.StoreData(new EnterData(saveDataScript.name(dont want to change this), saveDataScript.IconInt(dont want to change this either), saveDataScript.LP + 21));
+        //name should always be saveDataScript.name !
     }
 
-    private void StartingIcon()
+    public void StartingStats()
     {
-        saveDataScript.GetSpriteData();
+        saveDataScript.GetData();
         SetIcon(saveDataScript.IconInt);
+        SetElo(0);
+        SetPoints();
+        nameText.text = saveDataScript.Nickname;
     }
     public void SetIcon(int summonerIconIndex)
     {
@@ -37,24 +40,26 @@ public class Profile : MonoBehaviour
 
     public void SetPoints()
     {
+        ip = saveDataScript.IP;
         IPText.text = "" + ip;
     }
 
-    public void SetNickname()
+    public void SetElo(int lp)
     {
         saveDataScript.GetData();
-        nameText.text = saveDataScript.Nickname;
+        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt,saveDataScript.LP + lp, saveDataScript.IP));
     }
 
-    public void SetElo()
+    public void AddLeaguePoints(int ip)
     {
         saveDataScript.GetData();
-        elo = saveDataScript.LP;
+        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt, saveDataScript.LP, saveDataScript.IP + ip));
+        SetPoints();
     }
 
     public void SaveIcon()
     {
-        saveDataScript.SaveIconInt(icon);
+        saveDataScript.StoreData(new EnterData(saveDataScript.name, icon, saveDataScript.LP, saveDataScript.IP));
     }
 
 }
