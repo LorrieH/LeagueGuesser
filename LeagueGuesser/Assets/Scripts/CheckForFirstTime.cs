@@ -11,11 +11,7 @@ public class CheckForFirstTime : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         saveName = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
-        CheckFirstTime();
-    }
 
-    void CheckFirstTime()
-    {
         HidePanel();
     }
 

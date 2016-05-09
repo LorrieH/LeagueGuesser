@@ -44,6 +44,18 @@ public class SaveData : MonoBehaviour {
             lp = value;
         }
     }
+    private int ip;
+    public int IP
+    {
+        get
+        {
+            return ip;
+        }
+        set
+        {
+            ip = value;
+        }
+    }
     private int iconInt;
     public int IconInt
     {
@@ -64,46 +76,40 @@ public class SaveData : MonoBehaviour {
         incorrectName.enabled = false;       
     }
 
-    public void SaveIconInt(int arrayInt)
+    public void SaveName()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SpriteData.elohell");
-        SpriteData enterSprite = new SpriteData();
-        enterSprite.spriteInt = arrayInt;
-
-        bf.Serialize(file, enterSprite);
-        file.Close();
+        StoreData(new EnterData(nameInput.text, IconInt, LP, IP));
     }
 
-    public void AddLeaguePoints(int leaguepoints)
+    public void StoreData(EnterData newData)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
-        EnterData enterName = new EnterData();
+        EnterData enterData = newData;
 
-        enterName.leaguePoints += leaguepoints;
-        bf.Serialize(file, enterName);
-        file.Close();
-    }
-
-    public void StoreData(string nickname)
-    {
-        
-        if (nameInput.text.Length >= 4 && nameInput.text.Length <= 16)
+        if (File.Exists(Application.persistentDataPath + "/SaveData.elohell"))
         {
-            nickname = nameInput.text;
-
-            BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
-            EnterData enterName = new EnterData();
-            enterName.name = nickname;
-            enterName.firstTime = false;
-            bf.Serialize(file, enterName);
+
+            enterData.name = nickname;
+
+            bf.Serialize(file, enterData);
+
             file.Close();
         }
         else
         {
-            StartCoroutine(ShowText(1.5f));
+            FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
+
+
+                nickname = nameInput.text;
+
+                enterData.name = nickname;
+                enterData.firstTime = false;
+                enterData.spriteInt = IconInt;
+                enterData.leaguePoints = LP;
+
+                bf.Serialize(file, enterData);
+                file.Close();
         }
     }
 
@@ -115,23 +121,13 @@ public class SaveData : MonoBehaviour {
             FileStream file = File.Open(Application.persistentDataPath + "/SaveData.elohell", FileMode.Open);
 
             EnterData saveData = (EnterData)bf.Deserialize(file);
+
+
+            nickname = saveData.name;     
             showPanel = saveData.firstTime;
-            nickname = saveData.name;
-            lp = saveData.leaguePoints;
-
-            file.Close();
-        }
-    }
-
-    public void GetSpriteData()
-    {
-        if (File.Exists(Application.persistentDataPath + "/SpriteData.elohell"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/SpriteData.elohell", FileMode.Open);
-
-            SpriteData spriteData = (SpriteData)bf.Deserialize(file);
-            iconInt = spriteData.spriteInt;
+            LP = saveData.leaguePoints;
+            IP = saveData.influencePoints;
+            IconInt = saveData.spriteInt;
 
             file.Close();
         }
@@ -143,11 +139,16 @@ public class EnterData
 {
     public string name;
     public int leaguePoints;
-    public bool firstTime;
-}
-
-[System.Serializable]
-public class SpriteData
-{
+    public bool firstTime = false;
     public int spriteInt;
+    public int influencePoints;
+
+    public EnterData(string _name, int _spriteInt, int _lp, int _ip)
+    {
+        name = _name;
+        spriteInt = _spriteInt;
+        influencePoints = _ip;
+        leaguePoints = _lp;
+
+    }
 }
