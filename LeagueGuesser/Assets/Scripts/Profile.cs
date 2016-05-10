@@ -6,8 +6,8 @@ public class Profile : MonoBehaviour
 {
     [SerializeField]private Sprite[] icons;
     private SaveData saveDataScript;
+    private DivisionChecker divisionChecker;
     private int icon;
-    private int elo;
     private int ip = 1337;
 
     [SerializeField]private Text nameText;
@@ -17,6 +17,7 @@ public class Profile : MonoBehaviour
     void Start()
     {
         saveDataScript = GameObject.FindWithTag("DataObject").GetComponent<SaveData>();
+        divisionChecker = GetComponent<DivisionChecker>();
         StartingStats();
         //saveDataScript.StoreData(new EnterData(string name, int iconint, int leaguepoints));
         //to only set 1 variable, use saveDataScript.(variable) for the variables you dont want to change except for leaguepoints, set this to 0 if you dont want to change.
@@ -47,7 +48,8 @@ public class Profile : MonoBehaviour
     public void SetElo(int lp)
     {
         saveDataScript.GetData();
-        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt,saveDataScript.LP + lp, saveDataScript.IP));
+        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt, saveDataScript.LP + lp, saveDataScript.IP));
+        divisionChecker.SetCurrentDivisionWithPoints(saveDataScript.LP);
     }
 
     public void AddLeaguePoints(int ip)
