@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class QuestionChecker : MonoBehaviour 
 {
     private QuestionGenerator questionGenerator;
+    private ImageEffects victoryEffectScript;
+    private ImageEffects defeatEffectScript;
     [SerializeField]private InputField inputAnswer;
     [SerializeField]private GameObject victoryScreen;
     [SerializeField]private GameObject defeatScreen;
@@ -12,28 +14,28 @@ public class QuestionChecker : MonoBehaviour
 	void Start () 
     {
         questionGenerator = GetComponent<QuestionGenerator>();
-	}
+        victoryEffectScript = victoryScreen.GetComponentInChildren<ImageEffects>();
+        defeatEffectScript = defeatScreen.GetComponentInChildren<ImageEffects>();
+    }
 
     public void CheckQuestion()
     {
         string tempAnswer = inputAnswer.text;
         string answer = tempAnswer.ToLower();
-        Debug.Log(answer);
         int pos = System.Array.IndexOf(questionGenerator.currentQuestion.questionAnswers, answer);
         if (pos > -1)
         {
-            Debug.Log("Correct!");
             StartCoroutine(Victory());
         }
         else
         {
-            Debug.Log("Fout!");
             StartCoroutine(Defeat());
         }
     }
 
     IEnumerator Victory()
     {
+        victoryEffectScript.ResetTimer();
         inputAnswer.text = "";
         victoryScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -43,6 +45,7 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Defeat()
     {
+        defeatEffectScript.ResetTimer();
         inputAnswer.text = "";
         defeatScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
