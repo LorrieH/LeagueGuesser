@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/Bronzo.unity
-=======
-- path: Assets/Scenes/ItemQuestions.unity
->>>>>>> origin/master
+- path: Assets/Scenes/MainMenu.unity
   isLoaded: 1
   isActive: 1

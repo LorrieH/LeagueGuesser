@@ -90,8 +90,6 @@ public class SaveData : MonoBehaviour {
         {
             FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
 
-            enterData.name = nickname;
-
             bf.Serialize(file, enterData);
 
             file.Close();
@@ -123,7 +121,7 @@ public class SaveData : MonoBehaviour {
             EnterData saveData = (EnterData)bf.Deserialize(file);
 
 
-            nickname = saveData.name;     
+            nickname = saveData.name;
             showPanel = saveData.firstTime;
             LP = saveData.leaguePoints;
             IP = saveData.influencePoints;
@@ -149,6 +147,5 @@ public class EnterData
         spriteInt = _spriteInt;
         influencePoints = _ip;
         leaguePoints = _lp;
-
     }
 }
