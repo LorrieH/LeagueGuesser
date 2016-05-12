@@ -8,11 +8,13 @@ public class QuestionGenerator : MonoBehaviour {
     public Question currentQuestion;
 
     private ImageEffects effectScript;
+    private AnimationHandler animations;
     [SerializeField]private Text questionText;
     [SerializeField]private Image questionImage;
 
     void Start()
     {
+        animations = GetComponent<AnimationHandler>();
         effectScript = GameObject.FindWithTag("QuestionImage").GetComponent<ImageEffects>();
         NextQuestion();
     }
@@ -22,8 +24,10 @@ public class QuestionGenerator : MonoBehaviour {
         currentQuestion = GenerateQuestion();
         questionText.text = currentQuestion.questionString;
         questionImage.sprite = currentQuestion.questionImage;
-        effectScript.ResetTimer();
-        effectScript.ResetScale();
+        animations.PlayAnimation("TextAnimator", 1);
+        animations.PlayAnimation("TextBackgroundAnimator", 1);
+        animations.PlayAnimation("ImageAnimator", 1);
+        animations.PlayAnimation("ImageBackgroundAnimator", 1);
 	}
 
     private Question GenerateQuestion()

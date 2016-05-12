@@ -7,12 +7,14 @@ public class QuestionChecker : MonoBehaviour
     private QuestionGenerator questionGenerator;
     private ImageEffects victoryEffectScript;
     private ImageEffects defeatEffectScript;
+    private AnimationHandler animations;
     [SerializeField]private InputField inputAnswer;
     [SerializeField]private GameObject victoryScreen;
     [SerializeField]private GameObject defeatScreen;
 
 	void Start () 
     {
+        animations = GetComponent<AnimationHandler>();
         questionGenerator = GetComponent<QuestionGenerator>();
         victoryEffectScript = victoryScreen.GetComponentInChildren<ImageEffects>();
         defeatEffectScript = defeatScreen.GetComponentInChildren<ImageEffects>();
@@ -23,6 +25,10 @@ public class QuestionChecker : MonoBehaviour
         string tempAnswer = inputAnswer.text;
         string answer = tempAnswer.ToLower();
         int pos = System.Array.IndexOf(questionGenerator.currentQuestion.questionAnswers, answer);
+        animations.PlayAnimation("TextAnimator", 2);
+        animations.PlayAnimation("TextBackgroundAnimator", 2);
+        animations.PlayAnimation("ImageAnimator", 2);
+        animations.PlayAnimation("ImageBackgroundAnimator", 2);
         if (pos > -1)
         {
             StartCoroutine(Victory());
@@ -51,6 +57,11 @@ public class QuestionChecker : MonoBehaviour
         yield return new WaitForSeconds(2f);
         defeatScreen.SetActive(false);
         questionGenerator.NextQuestion();
+    }
+
+    void PlayAnimations()
+    {
+
     }
 
 }
