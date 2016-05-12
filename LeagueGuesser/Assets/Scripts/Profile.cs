@@ -9,6 +9,7 @@ public class Profile : MonoBehaviour
     private DivisionChecker divisionChecker;
     private int icon;
     private int ip = 1337;
+    private string summonerName;
 
     [SerializeField]private Text nameText;
     [SerializeField]private Text IPText;
@@ -28,11 +29,20 @@ public class Profile : MonoBehaviour
     public void StartingStats()
     {
         saveDataScript.GetData();
+        SetSummonerName();
+        nameText.text = summonerName;
         SetIcon(saveDataScript.IconInt);
         SetElo(0);
         SetPoints();
-        nameText.text = saveDataScript.Nickname;
+        
     }
+
+    private void SetSummonerName()
+    {
+        saveDataScript.GetData();
+        summonerName = saveDataScript.Nickname;
+    }
+
     public void SetIcon(int summonerIconIndex)
     {
         icon = summonerIconIndex;
@@ -48,20 +58,20 @@ public class Profile : MonoBehaviour
     public void SetElo(int lp)
     {
         saveDataScript.GetData();
-        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt, saveDataScript.LP + lp, saveDataScript.IP));
+        saveDataScript.StoreData(new EnterData(summonerName, saveDataScript.IconInt, saveDataScript.LP + lp, saveDataScript.IP));
         divisionChecker.SetCurrentDivisionWithPoints(saveDataScript.LP);
     }
 
     public void AddLeaguePoints(int ip)
     {
         saveDataScript.GetData();
-        saveDataScript.StoreData(new EnterData(saveDataScript.name, saveDataScript.IconInt, saveDataScript.LP, saveDataScript.IP + ip));
+        saveDataScript.StoreData(new EnterData(summonerName, saveDataScript.IconInt, saveDataScript.LP, saveDataScript.IP + ip));
         SetPoints();
     }
 
     public void SaveIcon()
     {
-        saveDataScript.StoreData(new EnterData(saveDataScript.name, icon, saveDataScript.LP, saveDataScript.IP));
+        saveDataScript.StoreData(new EnterData(summonerName, icon, saveDataScript.LP, saveDataScript.IP));
     }
 
 }
