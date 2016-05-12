@@ -59,6 +59,7 @@ public class Profile : MonoBehaviour
     {
         saveDataScript.GetData();
         saveDataScript.StoreData(new EnterData(summonerName, saveDataScript.IconInt, saveDataScript.LP + lp, saveDataScript.IP));
+        saveDataScript.GetData();
         divisionChecker.SetCurrentDivisionWithPoints(saveDataScript.LP);
     }
 
