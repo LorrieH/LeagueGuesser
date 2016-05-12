@@ -11,6 +11,7 @@ public class QuestionChecker : MonoBehaviour
     [SerializeField]private InputField inputAnswer;
     [SerializeField]private GameObject victoryScreen;
     [SerializeField]private GameObject defeatScreen;
+    private Profile profile;
 
 	void Start () 
     {
@@ -18,6 +19,7 @@ public class QuestionChecker : MonoBehaviour
         questionGenerator = GetComponent<QuestionGenerator>();
         victoryEffectScript = victoryScreen.GetComponentInChildren<ImageEffects>();
         defeatEffectScript = defeatScreen.GetComponentInChildren<ImageEffects>();
+        profile = GameObject.Find("Profile").GetComponent<Profile>();
     }
 
     public void CheckQuestion()
@@ -41,27 +43,34 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Victory()
     {
+        yield return new WaitForSeconds(.3f);
         victoryEffectScript.ResetTimer();
         inputAnswer.text = "";
         victoryScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         victoryScreen.SetActive(false);
+        profile.SetElo(Random.Range(16,24));
         questionGenerator.NextQuestion();
     }
 
     IEnumerator Defeat()
     {
+        yield return new WaitForSeconds(.5f);
         defeatEffectScript.ResetTimer();
         inputAnswer.text = "";
         defeatScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         defeatScreen.SetActive(false);
+        profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
     }
+<<<<<<< HEAD
 
     void PlayAnimations()
     {
 
     }
 
+=======
+>>>>>>> origin/master
 }

@@ -32,7 +32,7 @@ public class SaveData : MonoBehaviour {
             nickname = value;
         }
     }
-    private int lp;
+    private int lp = 800;
     public int LP
     {
         get
@@ -91,15 +91,14 @@ public class SaveData : MonoBehaviour {
             FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
 
             bf.Serialize(file, enterData);
-
+            
             file.Close();
         }
         else
         {
             FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
 
-
-                nickname = nameInput.text;
+                Nickname = nameInput.text;
 
                 enterData.name = nickname;
                 enterData.firstTime = false;
@@ -115,13 +114,12 @@ public class SaveData : MonoBehaviour {
     {
         if(File.Exists(Application.persistentDataPath + "/SaveData.elohell"))
         {
+            
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/SaveData.elohell", FileMode.Open);
 
             EnterData saveData = (EnterData)bf.Deserialize(file);
-
-
-            nickname = saveData.name;
+            Nickname = saveData.name;
             showPanel = saveData.firstTime;
             LP = saveData.leaguePoints;
             IP = saveData.influencePoints;
