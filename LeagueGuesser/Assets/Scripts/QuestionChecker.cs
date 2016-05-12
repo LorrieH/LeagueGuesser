@@ -49,7 +49,7 @@ public class QuestionChecker : MonoBehaviour
         victoryScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         victoryScreen.SetActive(false);
-        profile.SetElo(Random.Range(16,24));
+        //profile.SetElo(Random.Range(16,24));
         questionGenerator.NextQuestion();
     }
 
@@ -61,16 +61,7 @@ public class QuestionChecker : MonoBehaviour
         defeatScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         defeatScreen.SetActive(false);
-        profile.SetElo(Random.Range(-16, -24));
+        //profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
     }
-<<<<<<< HEAD
-
-    void PlayAnimations()
-    {
-
-    }
-
-=======
->>>>>>> origin/master
 }

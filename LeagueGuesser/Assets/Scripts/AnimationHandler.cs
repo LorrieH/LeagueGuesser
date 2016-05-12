@@ -8,7 +8,7 @@ public class AnimationHandler : MonoBehaviour
     private Animator questionImageAnimator;
     private Animator questionImageBackgroundAnimator;
 
-	void Start () 
+	void Awake () 
     {
         questionTextAnimator = GameObject.Find("QuestionText").GetComponent<Animator>();
         questionTextBackgroundAnimator = GameObject.Find("QuestionTextBackground").GetComponent<Animator>();
