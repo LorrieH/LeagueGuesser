@@ -32,7 +32,7 @@ public class SaveData : MonoBehaviour {
             nickname = value;
         }
     }
-    private int lp;
+    private int lp = 800;
     public int LP
     {
         get
@@ -91,7 +91,7 @@ public class SaveData : MonoBehaviour {
             FileStream file = File.Create(Application.persistentDataPath + "/SaveData.elohell");
 
             bf.Serialize(file, enterData);
-
+            
             file.Close();
         }
         else
