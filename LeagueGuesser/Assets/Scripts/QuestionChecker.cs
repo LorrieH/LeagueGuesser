@@ -11,6 +11,7 @@ public class QuestionChecker : MonoBehaviour
     [SerializeField]private GameObject victoryScreen;
     [SerializeField]private GameObject defeatScreen;
     private int winstreak = 0;
+    private bool isSkipping = false;
     private Profile profile;
 
 	void Start () 
@@ -27,10 +28,7 @@ public class QuestionChecker : MonoBehaviour
         string tempAnswer = inputAnswer.text;
         string answer = tempAnswer.ToLower();
         int pos = System.Array.IndexOf(questionGenerator.currentQuestion.questionAnswers, answer);
-        animations.PlayAnimation("TextAnimator", 2);
-        animations.PlayAnimation("TextBackgroundAnimator", 2);
-        animations.PlayAnimation("ImageAnimator", 2);
-        animations.PlayAnimation("ImageBackgroundAnimator", 2);
+        QuestionAnimations();
         if (pos > -1)
         {
             StartCoroutine(Victory());
@@ -41,7 +39,6 @@ public class QuestionChecker : MonoBehaviour
             StartCoroutine(Defeat());
             winstreak = 0;
         }
-        Debug.Log("Winstreak: " + winstreak + " bonus LP: " + (winstreak * 2));
     }
 
     IEnumerator Victory()
@@ -54,7 +51,7 @@ public class QuestionChecker : MonoBehaviour
         animations.PlayAnimation("VictoryAnimator", 2);
         yield return new WaitForSeconds(.3f);
         victoryScreen.SetActive(false);
-        profile.SetElo(Random.Range(16,24) + (winstreak * 2));
+        profile.SetElo(Random.Range(15,21) + (winstreak * 2));
         profile.AddLeaguePoints(Random.Range(80, 120));
         questionGenerator.NextQuestion();
         profile.SetLPBar();
@@ -73,5 +70,32 @@ public class QuestionChecker : MonoBehaviour
         profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
         profile.SetLPBar();
+    }
+
+    public void QuestionAnimations()
+    {
+        animations.PlayAnimation("TextAnimator", 2);
+        animations.PlayAnimation("TextBackgroundAnimator", 2);
+        animations.PlayAnimation("ImageAnimator", 2);
+        animations.PlayAnimation("ImageBackgroundAnimator", 2);
+    }
+
+    public void SkipQuestion()
+    {
+        if(profile.GetPoints() >= 1000 && isSkipping == false)
+        {
+            StartCoroutine(Skip());
+        }
+    }
+
+    IEnumerator Skip()
+    {
+        isSkipping = true;
+        inputAnswer.text = "";
+        profile.AddLeaguePoints(-1000);
+        QuestionAnimations();
+        yield return new WaitForSeconds(1f);
+        questionGenerator.NextQuestion();
+        isSkipping = false;
     }
 }

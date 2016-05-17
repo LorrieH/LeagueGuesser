@@ -53,11 +53,14 @@ public class Profile : MonoBehaviour
 
     public void SetPoints()
     {
-        Debug.Log(saveDataScript.IP);
-
         ip = saveDataScript.IP;
         IPText.text = "" + ip;
         
+    }
+
+    public int GetPoints()
+    {
+        return saveDataScript.IP;
     }
 
     public void SetElo(int lp)
@@ -66,7 +69,6 @@ public class Profile : MonoBehaviour
         saveDataScript.StoreData(new EnterData(summonerName, saveDataScript.IconInt, saveDataScript.LP + lp, saveDataScript.IP));
         saveDataScript.GetData();
         divisionChecker.SetCurrentDivisionWithPoints(saveDataScript.LP);
-        Debug.Log(saveDataScript.LP);
     }
 
     public void AddLeaguePoints(int ip)

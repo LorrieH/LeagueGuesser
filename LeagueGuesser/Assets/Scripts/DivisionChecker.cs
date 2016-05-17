@@ -11,7 +11,6 @@ public class DivisionChecker : MonoBehaviour
 
     public void SetCurrentDivisionWithPoints(int value)
     {
-        Debug.Log("Current LP: " + value);
         for (int i = 0; i < divisions.Length; i++)
         {
             if (value >= divisions[i].minCap && value < divisions[i].maxCap)
@@ -19,15 +18,11 @@ public class DivisionChecker : MonoBehaviour
                 if(divisions[i].divisionIndex > currentDivision.divisionIndex)
                 {
                     //Promote
-                    Debug.Log("Promoted!");
                 }
                 else if(divisions[i].divisionIndex < currentDivision.divisionIndex)
                 {
                     //Demote
-                    Debug.Log("Demoted :(");
                 }
-                
-                Debug.Log("Current Division Index: " + currentDivision.divisionIndex);
                 currentDivision = divisions[i];
                 break;
             }
