@@ -19,7 +19,7 @@ public class QuestionChecker : MonoBehaviour
         questionGenerator = GetComponent<QuestionGenerator>();
         victoryEffectScript = victoryScreen.GetComponentInChildren<ImageEffects>();
         defeatEffectScript = defeatScreen.GetComponentInChildren<ImageEffects>();
-        profile = GameObject.Find("Profile").GetComponent<Profile>();
+        profile = GameObject.Find("ProfileData").GetComponent<Profile>();
     }
 
     public void CheckQuestion()
@@ -49,7 +49,7 @@ public class QuestionChecker : MonoBehaviour
         victoryScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         victoryScreen.SetActive(false);
-        //profile.SetElo(Random.Range(16,24));
+        profile.SetElo(Random.Range(16,24));
         questionGenerator.NextQuestion();
     }
 
@@ -61,7 +61,7 @@ public class QuestionChecker : MonoBehaviour
         defeatScreen.SetActive(true);
         yield return new WaitForSeconds(2f);
         defeatScreen.SetActive(false);
-        //profile.SetElo(Random.Range(-16, -24));
+        profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
     }
 }
