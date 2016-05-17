@@ -10,6 +10,7 @@ public class QuestionChecker : MonoBehaviour
     [SerializeField]private InputField inputAnswer;
     [SerializeField]private GameObject victoryScreen;
     [SerializeField]private GameObject defeatScreen;
+    private int winstreak = 0;
     private Profile profile;
 
 	void Start () 
@@ -18,6 +19,7 @@ public class QuestionChecker : MonoBehaviour
         questionGenerator = GetComponent<QuestionGenerator>();
         profile = GameObject.Find("ProfileData").GetComponent<Profile>();
         audioScript = GameObject.Find("AudioManager").GetComponent<PlayAudio>();
+
     }
 
     public void CheckQuestion()
@@ -32,11 +34,14 @@ public class QuestionChecker : MonoBehaviour
         if (pos > -1)
         {
             StartCoroutine(Victory());
+            winstreak += 1;
         }
         else
         {
             StartCoroutine(Defeat());
+            winstreak = 0;
         }
+        Debug.Log("Winstreak: " + winstreak + " bonus LP: " + (winstreak * 2));
     }
 
     IEnumerator Victory()
@@ -49,7 +54,7 @@ public class QuestionChecker : MonoBehaviour
         animations.PlayAnimation("VictoryAnimator", 2);
         yield return new WaitForSeconds(.3f);
         victoryScreen.SetActive(false);
-        profile.SetElo(Random.Range(16,24));
+        profile.SetElo(Random.Range(16,24) + (winstreak * 2));
         profile.AddLeaguePoints(Random.Range(80, 120));
         questionGenerator.NextQuestion();
         profile.SetLPBar();

@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayAudio : MonoBehaviour {
 
     [SerializeField]private AudioClip[] clips;
+    [SerializeField]private Sprite[] soundSprites;
+    [SerializeField]private Image soundSprite;
     private AudioSource source;
+    private bool soundIsOn = true;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         source = GetComponent<AudioSource>();
 	}
 	
@@ -15,5 +19,22 @@ public class PlayAudio : MonoBehaviour {
     {
         source.clip = clips[clipNumber];
         source.PlayOneShot(source.clip);
+    }
+
+    public void ToggleSound()
+    {
+        soundIsOn = !soundIsOn;
+        Debug.Log(soundIsOn);
+        if(soundIsOn)
+        {
+            AudioListener.volume = 1;
+            soundSprite.sprite = soundSprites[0];
+        }
+        else
+        {
+            AudioListener.volume = 0;
+            soundSprite.sprite = soundSprites[1];
+        }
+        
     }
 }
