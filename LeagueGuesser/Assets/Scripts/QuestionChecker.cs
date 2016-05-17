@@ -56,6 +56,7 @@ public class QuestionChecker : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         victoryScreen.SetActive(false);
         profile.SetElo(Random.Range(16,24));
+        profile.AddLeaguePoints(Random.Range(80, 120));
         questionGenerator.NextQuestion();
     }
 
