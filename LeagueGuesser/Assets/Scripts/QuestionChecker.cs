@@ -41,10 +41,10 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Victory()
     {
+        audioScript.PlaySound(1);
         inputAnswer.text = "";
         victoryScreen.SetActive(true);
         animations.PlayAnimation("VictoryAnimator", 1);
-        audioScript.PlaySound(1);
         yield return new WaitForSeconds(1.5f);
         animations.PlayAnimation("VictoryAnimator", 2);
         yield return new WaitForSeconds(.3f);
@@ -57,10 +57,10 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Defeat()
     {
+        audioScript.PlaySound(2);
         inputAnswer.text = "";
         defeatScreen.SetActive(true);
         animations.PlayAnimation("DefeatAnimator", 1);
-        audioScript.PlaySound(2);
         yield return new WaitForSeconds(1.5f);
         animations.PlayAnimation("DefeatAnimator", 2);
         yield return new WaitForSeconds(.3f);
