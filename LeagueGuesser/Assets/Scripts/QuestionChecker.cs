@@ -43,11 +43,14 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Victory()
     {
-        yield return new WaitForSeconds(.3f);
-        victoryEffectScript.ResetTimer();
+        yield return new WaitForSeconds(.5f);
+        //victoryEffectScript.ResetTimer();
         inputAnswer.text = "";
         victoryScreen.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        animations.PlayAnimation("VictoryAnimator", 1);
+        yield return new WaitForSeconds(1.5f);
+        animations.PlayAnimation("VictoryAnimator", 2);
+        yield return new WaitForSeconds(.3f);
         victoryScreen.SetActive(false);
         //profile.SetElo(Random.Range(16,24));
         questionGenerator.NextQuestion();
@@ -59,7 +62,10 @@ public class QuestionChecker : MonoBehaviour
         defeatEffectScript.ResetTimer();
         inputAnswer.text = "";
         defeatScreen.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        animations.PlayAnimation("DefeatAnimator", 1);
+        yield return new WaitForSeconds(1.5f);
+        animations.PlayAnimation("DefeatAnimator", 2);
+        yield return new WaitForSeconds(.3f);
         defeatScreen.SetActive(false);
         //profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
