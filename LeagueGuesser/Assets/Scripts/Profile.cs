@@ -53,8 +53,11 @@ public class Profile : MonoBehaviour
 
     public void SetPoints()
     {
+        Debug.Log(saveDataScript.IP);
+
         ip = saveDataScript.IP;
         IPText.text = "" + ip;
+        
     }
 
     public void SetElo(int lp)
