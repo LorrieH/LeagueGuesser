@@ -44,7 +44,7 @@ public class SaveData : MonoBehaviour {
             lp = value;
         }
     }
-    private int ip;
+    private int ip = 0;
     public int IP
     {
         get
@@ -104,7 +104,8 @@ public class SaveData : MonoBehaviour {
                 enterData.firstTime = false;
                 enterData.spriteInt = IconInt;
                 enterData.leaguePoints = LP;
-
+                enterData.influencePoints = IP;
+            Debug.Log(enterData.influencePoints);
                 bf.Serialize(file, enterData);
                 file.Close();
         }
@@ -124,7 +125,7 @@ public class SaveData : MonoBehaviour {
             LP = saveData.leaguePoints;
             IP = saveData.influencePoints;
             IconInt = saveData.spriteInt;
-
+            
             file.Close();
         }
     }
