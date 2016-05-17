@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class QuestionChecker : MonoBehaviour 
 {
     private QuestionGenerator questionGenerator;
-    private ImageEffects victoryEffectScript;
-    private ImageEffects defeatEffectScript;
     private AnimationHandler animations;
     [SerializeField]private InputField inputAnswer;
     [SerializeField]private GameObject victoryScreen;
@@ -17,8 +15,6 @@ public class QuestionChecker : MonoBehaviour
     {
         animations = GetComponent<AnimationHandler>();
         questionGenerator = GetComponent<QuestionGenerator>();
-        victoryEffectScript = victoryScreen.GetComponentInChildren<ImageEffects>();
-        defeatEffectScript = defeatScreen.GetComponentInChildren<ImageEffects>();
         profile = GameObject.Find("ProfileData").GetComponent<Profile>();
     }
 
@@ -43,8 +39,6 @@ public class QuestionChecker : MonoBehaviour
 
     IEnumerator Victory()
     {
-        yield return new WaitForSeconds(.5f);
-        //victoryEffectScript.ResetTimer();
         inputAnswer.text = "";
         victoryScreen.SetActive(true);
         animations.PlayAnimation("VictoryAnimator", 1);
@@ -54,12 +48,11 @@ public class QuestionChecker : MonoBehaviour
         victoryScreen.SetActive(false);
         profile.SetElo(Random.Range(16,24));
         questionGenerator.NextQuestion();
+        profile.SetLPBar();
     }
 
     IEnumerator Defeat()
     {
-        yield return new WaitForSeconds(.5f);
-        defeatEffectScript.ResetTimer();
         inputAnswer.text = "";
         defeatScreen.SetActive(true);
         animations.PlayAnimation("DefeatAnimator", 1);
@@ -69,5 +62,6 @@ public class QuestionChecker : MonoBehaviour
         defeatScreen.SetActive(false);
         profile.SetElo(Random.Range(-16, -24));
         questionGenerator.NextQuestion();
+        profile.SetLPBar();
     }
 }

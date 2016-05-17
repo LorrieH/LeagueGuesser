@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class DivisionChecker : MonoBehaviour 
 {
     public Division[] divisions;
-    private Division currentDivision;
+    public Division currentDivision;
     [SerializeField]private Image eloIcon;
     [SerializeField]private Text eloText;
 

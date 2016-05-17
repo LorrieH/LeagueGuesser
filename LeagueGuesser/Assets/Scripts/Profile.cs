@@ -14,6 +14,7 @@ public class Profile : MonoBehaviour
     [SerializeField]private Text nameText;
     [SerializeField]private Text IPText;
     [SerializeField]private Image profileIcon;
+    [SerializeField]private Image LPBar;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class Profile : MonoBehaviour
         SetIcon(saveDataScript.IconInt);
         SetElo(0);
         SetPoints();
+        SetLPBar();
         
     }
 
@@ -74,6 +76,33 @@ public class Profile : MonoBehaviour
     public void SaveIcon()
     {
         saveDataScript.StoreData(new EnterData(summonerName, icon, saveDataScript.LP, saveDataScript.IP));
+    }
+
+    public void SetLPBar()
+    {
+        int min = divisionChecker.currentDivision.minCap;
+        int max = divisionChecker.currentDivision.maxCap;
+
+        if (divisionChecker.currentDivision.divisionName != "Challenger")
+        {
+            HandleBar(saveDataScript.LP, min, max);
+        }
+        else
+        {
+            LPBar.fillAmount = 1;
+        }
+        
+    }
+
+    public void HandleBar(float currentLP, float minLP, float maxLP)
+    {
+        float _fillAmount = Map(currentLP, minLP, maxLP, 0, 1);
+        LPBar.fillAmount = _fillAmount;
+    }
+
+    private float Map(float value, float inMin, float inMax, float outMin, float outMax)
+    {
+        return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
 
 }

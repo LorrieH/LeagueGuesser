@@ -7,7 +7,6 @@ public class QuestionGenerator : MonoBehaviour {
     public Question[] questions;
     public Question currentQuestion;
 
-    private ImageEffects effectScript;
     private AnimationHandler animations;
     [SerializeField]private Text questionText;
     [SerializeField]private Image questionImage;
@@ -15,7 +14,6 @@ public class QuestionGenerator : MonoBehaviour {
     void Start()
     {
         animations = GetComponent<AnimationHandler>();
-        effectScript = GameObject.FindWithTag("QuestionImage").GetComponent<ImageEffects>();
         NextQuestion();
     }
 
