@@ -1,4 +1,4 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.IO;
@@ -30,5 +30,5 @@ public class CustomEditor : EditorWindow
         File.Delete(Application.persistentDataPath + "/SaveData.elohell");
     }
 
-}*/
+}
 
