@@ -32,7 +32,7 @@ public class SaveData : MonoBehaviour {
             nickname = value;
         }
     }
-    private int lp = 800;
+    private int lp = 0;
     public int LP
     {
         get
