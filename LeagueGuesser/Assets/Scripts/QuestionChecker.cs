@@ -48,11 +48,12 @@ public class QuestionChecker : MonoBehaviour
         victoryScreen.SetActive(true);
         animations.PlayAnimation("VictoryAnimator", 1);
         yield return new WaitForSeconds(1.5f);
+        profile.AddLeaguePoints(Random.Range(80, 120));
+        profile.SetPoints();
         animations.PlayAnimation("VictoryAnimator", 2);
         yield return new WaitForSeconds(.3f);
         victoryScreen.SetActive(false);
-        profile.SetElo(Random.Range(15,21) + (winstreak * 2));
-        profile.AddLeaguePoints(Random.Range(80, 120));
+        profile.SetElo(Random.Range(13,20) + (winstreak * 2));
         questionGenerator.NextQuestion();
         profile.SetLPBar();
     }
@@ -67,7 +68,14 @@ public class QuestionChecker : MonoBehaviour
         animations.PlayAnimation("DefeatAnimator", 2);
         yield return new WaitForSeconds(.3f);
         defeatScreen.SetActive(false);
-        profile.SetElo(Random.Range(-16, -24));
+        if(profile.GetElo() > 0)
+        {
+            profile.SetElo(Random.Range(-16, -24));
+        }
+        else if(profile.GetElo() <= 0)
+        {
+            profile.SetEloTo(0);
+        }       
         questionGenerator.NextQuestion();
         profile.SetLPBar();
     }
@@ -93,6 +101,7 @@ public class QuestionChecker : MonoBehaviour
         isSkipping = true;
         inputAnswer.text = "";
         profile.AddLeaguePoints(-1000);
+        profile.SetPoints();
         QuestionAnimations();
         yield return new WaitForSeconds(1f);
         questionGenerator.NextQuestion();
