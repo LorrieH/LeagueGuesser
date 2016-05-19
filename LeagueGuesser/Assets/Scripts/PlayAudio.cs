@@ -24,7 +24,6 @@ public class PlayAudio : MonoBehaviour {
     public void ToggleSound()
     {
         soundIsOn = !soundIsOn;
-        Debug.Log(soundIsOn);
         if(soundIsOn)
         {
             AudioListener.volume = 1;
