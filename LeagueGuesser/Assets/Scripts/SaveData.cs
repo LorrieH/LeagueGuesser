@@ -105,7 +105,6 @@ public class SaveData : MonoBehaviour {
                 enterData.spriteInt = IconInt;
                 enterData.leaguePoints = LP;
                 enterData.influencePoints = IP;
-            Debug.Log(enterData.influencePoints);
                 bf.Serialize(file, enterData);
                 file.Close();
         }
